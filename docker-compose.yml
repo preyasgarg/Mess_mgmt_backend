@@ -15,7 +15,7 @@ services:
     container_name: frontend_container1
     command: npm start
 
- mydb:
+  mydb:
     image: "mysql:latest"
     ports:
       - "3307:3306"
