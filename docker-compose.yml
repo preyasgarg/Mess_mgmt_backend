@@ -29,6 +29,7 @@ services:
       #- MYSQL_PASSWORD=root
     environment:
       - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=Mess
 
   backend:
     image: "preyasgarg/messmgmt:v1"
@@ -40,7 +41,7 @@ services:
       - MYSQL_HOST=mydb
       - MYSQL_PORT=3306
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
+      - MYSQL_PASSWORD=root
     depends_on:
       - mydb
 
