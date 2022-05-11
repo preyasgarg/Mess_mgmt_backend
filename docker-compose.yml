@@ -23,10 +23,10 @@ services:
       - mysql-data1:/var/lib/mysql
     container_name: database_container
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=Mess
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
+      #- MYSQL_ROOT_PASSWORD=password
+      #- MYSQL_DATABASE=Mess
+      #- MYSQL_USER=root
+      #- MYSQL_PASSWORD=root
 
   backend:
     image: "preyasgarg/messmgmt:v1"
