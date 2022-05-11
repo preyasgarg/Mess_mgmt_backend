@@ -1,48 +1,94 @@
-version: '3.5'
-services:
-#   app:
-#     build: 
-#       context: .
+# version: '3.5'
+# services:
+# #   app:
+# #     build: 
+# #       context: .
+# #     volumes:
+# #       - .:/my-app
+    
+
+    
+#   frontend:
+#     image: "preyasgarg/frontend:v1"
+#     ports:
+#       - "3000:3000"
+#     container_name: frontend_container1
+#     command: npm start
+
+#   mydb:
+#     image: "mysql:latest"
+#     ports:
+#       - "3307:3306"
 #     volumes:
-#       - .:/my-app
-    
-
-    
-  frontend:
-    image: "preyasgarg/frontend:v1"
-    ports:
-      - "3000:3000"
-    container_name: frontend_container1
-    command: npm start
-
-  mydb:
-    image: "mysql:latest"
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql-data1:/var/lib/mysql
-    container_name: database_container
+#       - mysql-data1:/var/lib/mysql
+#     container_name: database_container
+# #     environment:
+#       #- MYSQL_ROOT_PASSWORD=password
+#       #- MYSQL_DATABASE=Mess
+#       #- MYSQL_USER=root
+#       #- MYSQL_PASSWORD=root
 #     environment:
-      #- MYSQL_ROOT_PASSWORD=password
-      #- MYSQL_DATABASE=Mess
-      #- MYSQL_USER=root
-      #- MYSQL_PASSWORD=root
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
+#       - MYSQL_ROOT_PASSWORD=root
 
-  backend:
-    image: "preyasgarg/messmgmt:v1"
-    ports:
-      - "5002:5002"
-    container_name: backend_container_sql1
-    restart: on-failure
+#   backend:
+#     image: "preyasgarg/messmgmt:v1"
+#     ports:
+#       - "5002:5002"
+#     container_name: backend_container_sql1
+#     restart: on-failure
+#     environment:
+#       - MYSQL_HOST=mydb
+#       - MYSQL_PORT=3306
+#       - MYSQL_USER=root
+#       - MYSQL_PASSWORD=password
+#     depends_on:
+#       - mydb
+
+# volumes:
+#   mysql-data1:
+
+
+version: "2.4"
+services:
+
+  mysqldb-container:
+    image: mysql/mysql-server
+    container_name: mysqldb-container
+#    volumes:
+#      - mysql-data:/var/lib/mysql
+    networks:
+      - my_net
     environment:
-      - MYSQL_HOST=mydb
-      - MYSQL_PORT=3306
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=Mess
       - MYSQL_USER=root
       - MYSQL_PASSWORD=password
-    depends_on:
-      - mydb
 
-volumes:
-  mysql-data1:
+  backend:
+    image: preyasgarg/messmgmt:v1
+    container_name: backend
+    networks:
+      - my_net
+    ports:
+      - "5002:5002"
+    links:
+      - mysqldb-container
+    depends_on:
+      mysqldb-container:
+        condition: service_healthy
+
+  frontend:
+    image: preyasgarg/frontend:v1
+    container_name: frontend
+    networks:
+      - my_net
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+#volumes:
+#  mysql-data:
+
+networks:
+  my_net:
