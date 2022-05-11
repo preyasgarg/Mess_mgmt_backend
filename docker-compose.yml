@@ -27,6 +27,8 @@ services:
       #- MYSQL_DATABASE=Mess
       #- MYSQL_USER=root
       #- MYSQL_PASSWORD=root
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
 
   backend:
     image: "preyasgarg/messmgmt:v1"
