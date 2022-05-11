@@ -1,3 +1,1 @@
-[docker]
-172.16.134.99 ansible_user=preyas 
-host_key_checking = False
+172.16.134.99 ansible_user=preyas ansible_ssh_pass=preyas
