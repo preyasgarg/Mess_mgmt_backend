@@ -8,25 +8,13 @@ services:
     
 
     
-#  frontend:
-#    image: "prudhvinag637/frontend-jenkins"
-#    ports:
-#      - "3000:3000"
-#    container_name: frontend_container1
-#    command: npm start
-  mydb:
-    image: mysql
+  frontend:
+    image: "preyasgarg/frontend:v1"
     ports:
-      - "3307:3306"
-    volumes:
-      - mysql-data1:/var/lib/mysql
-    container_name: database_container
-    environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=Mess
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
-      
+      - "3000:3000"
+    container_name: frontend_container1
+    command: npm start
+
   backend:
     image: "preyasgarg/messmgmt:v1"
     ports:
@@ -40,6 +28,19 @@ services:
       - MYSQL_PASSWORD=password
     depends_on:
       - mydb
+
+  mydb:
+    image: "mysql:latest"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data1:/var/lib/mysql
+    container_name: database_container
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=Mess
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
 
 volumes:
   mysql-data1:
