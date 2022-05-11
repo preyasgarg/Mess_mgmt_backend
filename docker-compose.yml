@@ -22,7 +22,7 @@ services:
     volumes:
       - mysql-data1:/var/lib/mysql
     container_name: database_container
-    environment:
+#     environment:
       #- MYSQL_ROOT_PASSWORD=password
       #- MYSQL_DATABASE=Mess
       #- MYSQL_USER=root
