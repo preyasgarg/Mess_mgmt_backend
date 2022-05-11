@@ -17,4 +17,4 @@
 #        state: present
     - name: shell docker
       shell:
-        cmd: docker-compose up
+        cmd: docker-compose -f docker-compose.yml up -d
